@@ -81,7 +81,7 @@ namespace ToursSitePreBata.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CategoryName,CategoryDescription,CategoryPhotoLink")] tourCategory1 tourCategory)
+        public ActionResult Edit([Bind(Include = "CategoryName,CategoryDescription,CategoryPhotoLink")] tourCategory tourCategory)
         {
             if (ModelState.IsValid)
             {
