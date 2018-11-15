@@ -1,0 +1,24 @@
+﻿@model ToursSitePreBata.Models.Tour
+
+@*<div class="media">
+    <a href="https://placeholder.com"><img src="https://via.placeholder.com/150" /></a>
+    <div class="media-body">
+        <h5>@Html.DisplayFor(model => model.TourName)</h5>
+        @Html.DisplayFor(x => x.TourDescription)
+    </div>
+    <span>@Html.ActionLink("Edit", "Edit", new { id = Model.TourID }) |</span>
+</div>*@
+
+<div class="card mb-4 shadow-sm">
+    @*<a href="https://placeholder.com"><img src="https://via.placeholder.com/150" /></a>*@
+    <h5 class="card-header">@Html.DisplayFor(model => model.TourName)</h5>
+    <img class="card-img-top" src="https://via.placeholder.com/150" alt="thumbnail" style="height:200px" />
+    <div class="card-body">
+        <p>@Html.DisplayFor(x => x.TourDescription)</p>
+        <div class="d-flex justify-content-between align-items-center">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TourID })
+        </div>
+    </div>
+    @*<span>@Html.ActionLink("Edit", "Edit", new { id = Model.TourID }) |</span>*@
+</div>
+

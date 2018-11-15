@@ -1,0 +1,32 @@
+﻿@model IEnumerable<ToursSitePreBata.Models.Tour>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<div class="input-group">
+    <div class="dropdown">
+        @Html.DropDownList("CategoryName", new SelectList(ViewBag.categories, "CategoryID", "CategoryName"));
+    </div>
+    <input type="text" class="form-control" placeholder="Search for...">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+    </span>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var tour in Model)
+        {
+            <div class="col-md-4">
+                @Html.Partial("_tour", tour)
+            </div>
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+

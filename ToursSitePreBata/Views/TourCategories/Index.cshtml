@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ToursSitePreBata.Models.tourCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryDescription)
+        </th>
+        <th>
+            Available Tours
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.CategoryName
+        </td>
+        <td>
+            @item.CategoryDescription
+        </td>
+        <td>
+            @item.CategoryPhotoLink
+        </td>
+        <td>
+            <ul>
+                @foreach (var tour in item.Tours)
+                {
+                <li class="text-nowrap"><a href="@Url.Action("Edit", new { id = tour.TourID })">@tour.TourName</a></li>
+                }
+            </ul>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CategoryId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
+        </td>
+    </tr>
+}
+
+</table>
