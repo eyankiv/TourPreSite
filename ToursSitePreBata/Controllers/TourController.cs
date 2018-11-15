@@ -12,16 +12,18 @@ namespace ToursSitePreBata.Controllers
     {
         private ToursDBEntities dbContext = new ToursDBEntities();
         // GET: Tour
-        public ActionResult Index(string category)
+        public ActionResult Index(String category)
         {
-            IEnumerable<tourCategory> categories = dbContext.tourCategories.ToList();
-            IEnumerable<Tour> tours = dbContext.Tours.ToList();
-            ViewBag.categories = categories;
-            //if (categoryId!=0)
-            //{
-            //    tours = tours.Where(t => t.CategoryID == categoryId);
-            //}
-            return View(tours);
+            
+            IEnumerable<Tour> tours = dbContext.Tours;
+            IEnumerable<string> categories = tours.OrderBy(t=>t.tourCategory.CategoryName).Select(t=>t.tourCategory.CategoryName).Distinct();
+            //ViewBag.category = categories;
+            ViewBag.category = new SelectList(categories);
+            if (!String.IsNullOrEmpty(category))
+            {
+                tours = tours.Where(t => t.tourCategory.CategoryName == category);
+            }
+            return View(tours.ToList());
         }
     }
 }

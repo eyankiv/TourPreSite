@@ -5,15 +5,22 @@
 }
 
 <h2>Index</h2>
-<div class="input-group">
-    <div class="dropdown">
-        @Html.DropDownList("CategoryName", new SelectList(ViewBag.categories, "CategoryID", "CategoryName"));
-    </div>
-    <input type="text" class="form-control" placeholder="Search for...">
-    <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-    </span>
+<div class="dropdown-header">
+    @using (Html.BeginForm("Index", "Tour", FormMethod.Get))
+    {
+        <label>Filter by Category: </label> @Html.DropDownList("category", "All")
+        <input type="submit" value="Filter" />
+    }
 </div>
+@*<div class="input-group">
+        <div class="dropdown">
+            @Html.DropDownList("CategoryID", new SelectList(ViewBag.categories, "CategoryID", "CategoryName"), "All", null)
+        </div>
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button">Go!</button>
+        </span>
+    </div>*@
 
 <div class="container-fluid">
     <div class="row">
