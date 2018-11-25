@@ -12,11 +12,10 @@ namespace ToursSitePreBata.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Photo
+    public partial class tourPhoto
     {
         public int PhotoID { get; set; }
-        public string Name { get; set; }
-        public Nullable<int> TourId { get; set; }
+        public string FileName { get; set; }
         public Nullable<int> GalleryID { get; set; }
     
         public virtual tourGallery tourGallery { get; set; }

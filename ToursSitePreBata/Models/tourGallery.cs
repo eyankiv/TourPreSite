@@ -17,8 +17,8 @@ namespace ToursSitePreBata.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tourGallery()
         {
-            this.Photos = new HashSet<Photo>();
             this.Tours = new HashSet<Tour>();
+            this.tourPhotos = new HashSet<tourPhoto>();
         }
     
         public int GalleryID { get; set; }
@@ -26,8 +26,8 @@ namespace ToursSitePreBata.Models
         public string GalleryLink { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Photo> Photos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tour> Tours { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tourPhoto> tourPhotos { get; set; }
     }
 }

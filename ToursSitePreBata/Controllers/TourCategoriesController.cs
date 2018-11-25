@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ToursSitePreBata.DAL;
 using ToursSitePreBata.Models;
 
 namespace ToursSitePreBata.Controllers
