@@ -41,7 +41,7 @@ namespace ToursSitePreBata.Controllers
                 .Select(t => t.tourCategory.CategoryName).Distinct();
             //ViewBag.category = categories;
             ViewBag.category = new SelectList(categories);
-
+            ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", "Choose a Photo");
 
             return View();
         }
@@ -65,7 +65,7 @@ namespace ToursSitePreBata.Controllers
         {
             Tour tour = dbContext.Tours.Find(id);
             ViewBag.CategoryIDlist = new SelectList(dbContext.tourCategories, "CategoryId", "CategoryName", tour.CategoryID);
-            ViewBag.PhotoList = new SelectList(dbContext.tourPhotos, "PhotoID", "FileName", "****addPhotoID");
+            ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", tour.PhotoID);
             //IEnumerable<Tour> tours = dbContext.Tours;
             //IEnumerable<string> categories = tours.OrderBy(t => t.tourCategory.CategoryName).Select(t => t.tourCategory.CategoryName).Distinct();
             //ViewBag.category = categories;

@@ -20,7 +20,7 @@ namespace ToursSitePreBata.Controllers
         // GET: tourPhotos
         public ActionResult Index()
         {
-            var tourPhotoes = db.tourPhotos.Include(t => t.tourGallery);
+            var tourPhotoes = db.tourPhotoes.Include(t => t.tourGallery);
             return View(tourPhotoes.ToList());
         }
 
@@ -31,7 +31,7 @@ namespace ToursSitePreBata.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tourPhoto tourPhoto = db.tourPhotos.Find(id);
+            tourPhoto tourPhoto = db.tourPhotoes.Find(id);
             if (tourPhoto == null)
             {
                 return HttpNotFound();
@@ -87,7 +87,7 @@ namespace ToursSitePreBata.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.tourPhotos.Add(new tourPhoto { FileName = file.FileName });
+                db.tourPhotoes.Add(new tourPhoto { FileName = file.FileName });
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -101,7 +101,7 @@ namespace ToursSitePreBata.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tourPhoto tourPhoto = db.tourPhotos.Find(id);
+            tourPhoto tourPhoto = db.tourPhotoes.Find(id);
             if (tourPhoto == null)
             {
                 return HttpNotFound();
@@ -134,7 +134,7 @@ namespace ToursSitePreBata.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            tourPhoto tourPhoto = db.tourPhotos.Find(id);
+            tourPhoto tourPhoto = db.tourPhotoes.Find(id);
             if (tourPhoto == null)
             {
                 return HttpNotFound();
@@ -147,8 +147,8 @@ namespace ToursSitePreBata.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            tourPhoto tourPhoto = db.tourPhotos.Find(id);
-            db.tourPhotos.Remove(tourPhoto);
+            tourPhoto tourPhoto = db.tourPhotoes.Find(id);
+            db.tourPhotoes.Remove(tourPhoto);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -28,7 +28,8 @@ namespace ToursSitePreBata.Models
         public virtual DbSet<tourCategory> tourCategories { get; set; }
         public virtual DbSet<tourClass> tourClasses { get; set; }
         public virtual DbSet<tourGallery> tourGalleries { get; set; }
-        public virtual DbSet<tourPhoto> tourPhotos { get; set; }
+        public virtual DbSet<tourPhoto> tourPhotoes { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

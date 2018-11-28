@@ -13,6 +13,8 @@
         <AssociationConnector Association="ToursDBContext.FK_Tours_tourCategory" ManuallyRouted="false" />
         <AssociationConnector Association="ToursDBContext.FK_Tours_tourGallery" ManuallyRouted="false" />
         <AssociationConnector Association="ToursDBContext.FK_tourPhoto_tourGallery" />
+        <AssociationConnector Association="ToursDBContext.FK_tourPhoto_tourPhoto" />
+        <EntityTypeShape EntityType="ToursDBContext.sysdiagram" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

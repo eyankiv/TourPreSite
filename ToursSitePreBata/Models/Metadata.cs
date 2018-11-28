@@ -12,7 +12,7 @@ namespace ToursSitePreBata.Models
         public int TourID { get; set; }
         public string TourName { get; set; }
         public Nullable<int> CategoryID { get; set; }
-        public string MainPhotoLink { get; set; }
+        public string PhotoID { get; set; }
         public string TourDescription { get; set; }
         public Nullable<int> GalleryId { get; set; }
         public Nullable<int> ClassID { get; set; }
