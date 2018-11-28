@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -38,11 +40,11 @@ namespace ToursSitePreBata.Controllers
         }
 
         // GET: tourPhotos/Create
-        public ActionResult Create()
-        {
-            ViewBag.GalleryID = new SelectList(db.tourGalleries, "GalleryID", "GalleryName");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.GalleryID = new SelectList(db.tourGalleries, "GalleryID", "GalleryName");
+        //    return View();
+        //}
 
         // POST: tourPhotos/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -75,8 +77,13 @@ namespace ToursSitePreBata.Controllers
                 else
                 {
                     //if the user has not entered a file return an error message
-                    ModelState.AddModelError("FileName", "Please choose a file");
+                    ModelState.AddModelError("FileName", "The file must be a gif,png,jpeg or jpg and less than 2MB in size");
                 }
+            }
+            else
+            {
+                //if the user has not entered a file return an error message
+                ModelState.AddModelError("FileName", "Please choose a file");
             }
             if (ModelState.IsValid)
             {
@@ -169,16 +176,42 @@ namespace ToursSitePreBata.Controllers
         private void SaveFileToDisk(HttpPostedFileBase file)
         {
             WebImage img = new WebImage(file.InputStream);
+            FileInfo info = new FileInfo(file.FileName);
+            string fileNameWithoutPath = info.Name;
             if(img.Width > 190)
             {
                 img.Resize(190, img.Height);
             }
-            img.Save(LocalResources.Constants.TourImagePath + file.FileName);
+            //Save full size file
+            var path = Path.Combine(LocalResources.Constants.TourImagePath, fileNameWithoutPath);
+            try
+            {
+                img.Save(path);
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("path","full size imaged not saved due to error");
+                Debug.WriteLine(fileNameWithoutPath + " not saved in regular size");
+            }
+            Debug.WriteLine("combined path is : " + Path.Combine(LocalResources.Constants.TourImagePath, fileNameWithoutPath));
             if(img.Width > 100)
             {
                 img.Resize(100, img.Height);
             }
-            img.Save(LocalResources.Constants.TourThumbnailPath + file.FileName);
+            //save thumbnail
+            var thumPath = Path.Combine(LocalResources.Constants.TourThumbnailPath, fileNameWithoutPath);
+            try
+            {
+                img.Save(thumPath);
+            }
+            catch (Exception)
+            {
+
+                ModelState.AddModelError("path", "thumbnail imaged not saved due to error");
+                Debug.WriteLine(fileNameWithoutPath + " not saved in regular size");
+            }
+            Debug.WriteLine("combined path is : " + Path.Combine(LocalResources.Constants.TourThumbnailPath, fileNameWithoutPath));
+            
         }
     }
 }

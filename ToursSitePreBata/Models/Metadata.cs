@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -29,5 +31,17 @@ namespace ToursSitePreBata.Models
         public string CategoryPhotoLink { get; set; }
 
         public virtual ICollection<Tour> Tours { get; set; }
+    }
+
+    public partial class tourPhotoMetaData
+    {
+        public int PhotoID { get; set; }
+
+        [StringLength(100)]
+        [Index(IsUnique = true)]
+        public string FileName { get; set; }
+        public Nullable<int> GalleryID { get; set; }
+
+        public virtual tourGallery tourGallery { get; set; }
     }
 }

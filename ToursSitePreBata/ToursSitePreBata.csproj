@@ -171,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LocalResources\Constants.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\Tour.cs">
@@ -213,6 +214,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Thumbnails\jerusalem-full-day-tour_pic1.gif" />
+    <Content Include="Content\Thumbnails\jerusalem-full-day-tour_pic3.jpeg.gif" />
+    <Content Include="Content\TourPhotos\jerusalem-full-day-tour_pic1.gif" />
+    <Content Include="Content\TourPhotos\jerusalem-full-day-tour_pic3.jpeg.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -229,50 +234,6 @@
       <DependentUpon>ToursModel.edmx</DependentUpon>
       <LastGenOutput>ToursModel.cs</LastGenOutput>
     </Content>
-    <Content Include="Photos\Christian Heritage\grand-holyland-sunday-arrival-10-nights-8-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Christian Heritage\grand-holyland-sunday-arrival-10-nights-8-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Christian Heritage\holyland-tour-sunday-arrival-7-nights-6-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Christian Heritage\holyland-tour-sunday-arrival-7-nights-6-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Christian-tours_Main.jpeg" />
-    <Content Include="Photos\Israel Tours packages\israel-deluxe-a-small-group-experience_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\israel-deluxe-a-small-group-experience_Pic2.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-amaziah-tour-wednesday-arrival-11-nights-8-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-amaziah-tour-wednesday-arrival-11-nights-8-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-asa-tour-tuesday-arrival-8-nights6-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-asa-tour-tuesday-arrival-8-nights6-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-david-tour-wednesday-arrival-14-nights-10-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-david-tour-wednesday-arrival-14-nights-10-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-jotham-tour-friday-arrival-9-nights-6-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-jotham-tour-friday-arrival-9-nights-6-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-solomon-tour-friday-arrival-12-nights-8-touring-days_Pic1.jpeg" />
-    <Content Include="Photos\Israel Tours packages\king-solomon-tour-friday-arrival-12-nights-8-touring-days_Pic2.jpeg" />
-    <Content Include="Photos\israel-daily-tours_Main.jpeg" />
-    <Content Include="Photos\israel-private-tours_Main.jpeg" />
-    <Content Include="Photos\israel-tours_Main.jpeg" />
-    <Content Include="Photos\Israeli Daily Tours\jerusalem-full-day-tour_pic1.gif" />
-    <Content Include="Photos\Israeli Daily Tours\jerusalem-full-day-tour_pic2.gif" />
-    <Content Include="Photos\Israeli Daily Tours\jerusalem-full-day-tour_pic3.jpeg" />
-    <Content Include="Photos\Israeli Daily Tours\jerusalem-full-day-tour_pic4.jpeg" />
-    <Content Include="Photos\Israeli Daily Tours\jerusalem-full-day-tour_pic5.jpeg" />
-    <Content Include="Photos\jewish-tours_Main.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic1.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic2.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic3.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic4.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic5.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic6.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-bibilical-highlights-of-the-galilee_pic7.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-massada-dead-sea_pic1.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-massada-dead-sea_pic2.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-massada-dead-sea_pic3.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-massada-dead-sea_pic4.jpeg" />
-    <Content Include="Photos\Private Tours\private-tour-massada-dead-sea_pic5.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic1.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic2.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic3.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic4.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic5.jpeg" />
-    <Content Include="Photos\Private Tours\_private-tour-jerusalem_Pic6.jpeg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -360,6 +321,7 @@
     <Content Include="Views\tourPhotos\Details.cshtml" />
     <Content Include="Views\tourPhotos\Edit.cshtml" />
     <Content Include="Views\tourPhotos\Index.cshtml" />
+    <Content Include="Views\Tour\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

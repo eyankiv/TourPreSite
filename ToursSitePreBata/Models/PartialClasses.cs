@@ -18,5 +18,10 @@ namespace ToursSitePreBata.Models
 
     }
 
+    [MetadataType(typeof(tourPhotoMetaData))]
+    public partial class tourPhoto
+    {
+
+    }
     
 }

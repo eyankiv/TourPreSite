@@ -6,10 +6,10 @@
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Upload","TourPhotos",FormMethod.Post,new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Upload", "TourPhotos", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>tourPhoto</h4>
         <hr />
@@ -33,3 +33,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
