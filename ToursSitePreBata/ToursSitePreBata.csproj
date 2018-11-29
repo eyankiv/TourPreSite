@@ -192,6 +192,9 @@
     <Compile Include="Models\tourPhoto.cs">
       <DependentUpon>ToursModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TourPhotoMapping.cs">
+      <DependentUpon>ToursModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ToursModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,6 +210,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ToursModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\TourViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

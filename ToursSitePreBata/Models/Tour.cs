@@ -26,5 +26,6 @@ namespace ToursSitePreBata.Models
     
         public virtual tourCategory tourCategory { get; set; }
         public virtual tourGallery tourGallery { get; set; }
+        public virtual TourPhotoMapping TourPhotoMapping { get; set; }
     }
 }

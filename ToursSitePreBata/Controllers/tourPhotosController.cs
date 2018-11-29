@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -88,7 +90,25 @@ namespace ToursSitePreBata.Controllers
             if (ModelState.IsValid)
             {
                 db.tourPhotoes.Add(new tourPhoto { FileName = file.FileName });
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateException ex)
+                {
+                    SqlException innerException = ex.InnerException.InnerException as SqlException;
+                    if (innerException != null && innerException.Number == 2601)
+                    {
+                        ModelState.AddModelError("FileName", "The file " + file.FileName + " already exists in the system. " +
+                            "Please delete it and try again if you wish to re-add it");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("FileName", "Sorry an error has occured saving to the database, please try again");
+                    }
+                    return View();
+                }
+                
                 return RedirectToAction("Index");
             }
             return View();

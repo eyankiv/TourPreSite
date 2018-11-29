@@ -31,5 +31,6 @@ namespace ToursSitePreBata.Models
         public virtual DbSet<tourPhoto> tourPhotoes { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<TourPhotoMapping> TourPhotoMappings { get; set; }
     }
 }

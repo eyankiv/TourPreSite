@@ -14,6 +14,12 @@ namespace ToursSitePreBata.Models
     
     public partial class tourPhoto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tourPhoto()
+        {
+            this.TourPhotoMappings = new HashSet<TourPhotoMapping>();
+        }
+    
         public int PhotoID { get; set; }
         public string FileName { get; set; }
         public Nullable<int> GalleryID { get; set; }
@@ -21,5 +27,7 @@ namespace ToursSitePreBata.Models
         public virtual tourGallery tourGallery { get; set; }
         public virtual tourPhoto tourPhoto1 { get; set; }
         public virtual tourPhoto tourPhoto2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TourPhotoMapping> TourPhotoMappings { get; set; }
     }
 }
