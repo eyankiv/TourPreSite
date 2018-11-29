@@ -17,13 +17,13 @@ namespace ToursSitePreBata.Controllers
 {
     public class tourPhotosController : Controller
     {
-        private ToursDBEntities db = new ToursDBEntities();
+        private ToursDBEntities2 db = new ToursDBEntities2();
 
         // GET: tourPhotos
         public ActionResult Index()
         {
-            var tourPhotoes = db.tourPhotoes.Include(t => t.tourGallery);
-            return View(tourPhotoes.ToList());
+            //var tourPhotoes = db.tourPhotoes.Include(t => t.tourGallery);
+            return View();
         }
 
         // GET: tourPhotos/Details/5
@@ -126,7 +126,7 @@ namespace ToursSitePreBata.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.GalleryID = new SelectList(db.tourGalleries, "GalleryID", "GalleryName", tourPhoto.GalleryID);
+            // ViewBag.GalleryID = new SelectList(db., "GalleryID", "GalleryName", tourPhoto.GalleryID);
             return View(tourPhoto);
         }
 
@@ -143,7 +143,7 @@ namespace ToursSitePreBata.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GalleryID = new SelectList(db.tourGalleries, "GalleryID", "GalleryName", tourPhoto.GalleryID);
+            //ViewBag.GalleryID = new SelectList(db.tourPhotoes, "GalleryID", "GalleryName", tourPhoto.GalleryID);
             return View(tourPhoto);
         }
 

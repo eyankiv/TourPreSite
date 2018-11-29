@@ -14,13 +14,11 @@ namespace ToursSitePreBata.Models
         public Nullable<int> CategoryID { get; set; }
         public string PhotoID { get; set; }
         public string TourDescription { get; set; }
-        public Nullable<int> GalleryId { get; set; }
         public Nullable<int> ClassID { get; set; }
         public Nullable<int> LanguageId { get; set; }
         public Nullable<int> AvailDatesID { get; set; }
 
         public virtual tourCategory tourCategory { get; set; }
-        public virtual tourGallery tourGallery { get; set; }
     }
 
     public partial class tourCategoryMetadata
@@ -40,8 +38,6 @@ namespace ToursSitePreBata.Models
         [StringLength(100)]
         [Index(IsUnique = true)]
         public string FileName { get; set; }
-        public Nullable<int> GalleryID { get; set; }
 
-        public virtual tourGallery tourGallery { get; set; }
     }
 }

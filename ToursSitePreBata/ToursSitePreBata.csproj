@@ -163,6 +163,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Builders.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TourCategoriesController.cs" />
     <Compile Include="Controllers\TourController.cs" />
@@ -175,40 +176,37 @@
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Tour.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tourCategory.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tourClass.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\tourGallery.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+    <Compile Include="Models\TourEntityModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourEntityModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TourEntityModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TourEntityModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TourEntityModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\tourPhoto.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TourPhotoMapping.cs">
-      <DependentUpon>ToursModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ToursModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToursModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ToursModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToursModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ToursModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ToursModel.edmx</DependentUpon>
+      <DependentUpon>TourEntityModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TourViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,25 +219,21 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Thumbnails\jerusalem-full-day-tour_pic1.gif" />
-    <Content Include="Content\Thumbnails\jerusalem-full-day-tour_pic3.jpeg.gif" />
-    <Content Include="Content\TourPhotos\jerusalem-full-day-tour_pic1.gif" />
-    <Content Include="Content\TourPhotos\jerusalem-full-day-tour_pic3.jpeg.gif" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Models\ToursModel.Context.tt">
+    <Content Include="Models\TourEntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ToursModel.edmx</DependentUpon>
-      <LastGenOutput>ToursModel.Context.cs</LastGenOutput>
+      <DependentUpon>TourEntityModel.edmx</DependentUpon>
+      <LastGenOutput>TourEntityModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ToursModel.tt">
+    <Content Include="Models\TourEntityModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ToursModel.edmx</DependentUpon>
-      <LastGenOutput>ToursModel.cs</LastGenOutput>
+      <DependentUpon>TourEntityModel.edmx</DependentUpon>
+      <LastGenOutput>TourEntityModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -263,12 +257,12 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <EntityDeploy Include="Models\ToursModel.edmx">
+    <EntityDeploy Include="Models\TourEntityModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ToursModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>TourEntityModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ToursModel.edmx.diagram">
-      <DependentUpon>ToursModel.edmx</DependentUpon>
+    <Content Include="Models\TourEntityModel.edmx.diagram">
+      <DependentUpon>TourEntityModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -332,6 +326,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Thumbnails\" />
+    <Folder Include="Content\TourPhotos\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

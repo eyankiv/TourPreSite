@@ -13,10 +13,10 @@ namespace ToursSitePreBata.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ToursDBEntities : DbContext
+    public partial class ToursDBEntities2 : DbContext
     {
-        public ToursDBEntities()
-            : base("name=ToursDBEntities")
+        public ToursDBEntities2()
+            : base("name=ToursDBEntities2")
         {
         }
     
@@ -25,12 +25,11 @@ namespace ToursSitePreBata.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tourCategory> tourCategories { get; set; }
         public virtual DbSet<tourClass> tourClasses { get; set; }
-        public virtual DbSet<tourGallery> tourGalleries { get; set; }
         public virtual DbSet<tourPhoto> tourPhotoes { get; set; }
-        public virtual DbSet<Tour> Tours { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TourPhotoMapping> TourPhotoMappings { get; set; }
+        public virtual DbSet<Tour> Tours { get; set; }
     }
 }

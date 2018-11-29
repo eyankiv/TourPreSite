@@ -12,7 +12,7 @@ namespace ToursSitePreBata.Controllers
 {
     public class TourController : Controller
     {
-        private ToursDBEntities dbContext = new ToursDBEntities();
+        private ToursDBEntities2 dbContext = new ToursDBEntities2();
         // GET: Tour
 
        
@@ -36,20 +36,32 @@ namespace ToursSitePreBata.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            IEnumerable<Tour> tours = dbContext.Tours;
-            IEnumerable<string> categories = tours.OrderBy(t => t.tourCategory.CategoryName)
-                .Select(t => t.tourCategory.CategoryName).Distinct();
-            //ViewBag.category = categories;
-            ViewBag.category = new SelectList(categories);
-            ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", "Choose a Photo");
-
-            return View();
+            TourViewModel viewModel = new TourViewModel();
+            viewModel.CategoryList = new SelectList(dbContext.tourCategories, "CategoryID", "CategoryName");
+            viewModel.PhotoLists = new List<SelectList>();
+            for (int i = 0; i < LocalResources.Constants.NumberOfProductImages; i++)
+            {
+                viewModel.PhotoLists.Add(new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName"));
+            }
+            return View(viewModel);
         }
+        //public ActionResult Create()
+        //{
+        //    IEnumerable<Tour> tours = dbContext.Tours;
+        //    IEnumerable<string> categories = tours.OrderBy(t => t.tourCategory.CategoryName)
+        //        .Select(t => t.tourCategory.CategoryName).Distinct();
+        //    //ViewBag.category = categories;
+        //    ViewBag.category = new SelectList(categories);
+        //    ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", "Choose a Photo");
+
+        //    return View();
+        //}
 
         //Post: Tours/Create
         [HttpPost]
-        public ActionResult Create(Tour tour)
+        public ActionResult Create(TourViewModel tourVM)
         {
+            Tour tour = Builders.ConvertTourViewModelToModel(tourVM);
             if (ModelState.IsValid)
             {
                 dbContext.Tours.Add(tour);
@@ -57,7 +69,7 @@ namespace ToursSitePreBata.Controllers
                 return RedirectToAction("index");
             }
 
-            return View(tour);
+            return View(tourVM);
         }
 
         [HttpGet]
@@ -65,7 +77,7 @@ namespace ToursSitePreBata.Controllers
         {
             Tour tour = dbContext.Tours.Find(id);
             ViewBag.CategoryIDlist = new SelectList(dbContext.tourCategories, "CategoryId", "CategoryName", tour.CategoryID);
-            ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", tour.PhotoID);
+            //ViewBag.PhotoList = new SelectList(dbContext.tourPhotoes, "PhotoID", "FileName", tour.PhotoID);
             //IEnumerable<Tour> tours = dbContext.Tours;
             //IEnumerable<string> categories = tours.OrderBy(t => t.tourCategory.CategoryName).Select(t => t.tourCategory.CategoryName).Distinct();
             //ViewBag.category = categories;

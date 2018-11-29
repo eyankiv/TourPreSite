@@ -22,9 +22,7 @@ namespace ToursSitePreBata.Models
     
         public int PhotoID { get; set; }
         public string FileName { get; set; }
-        public Nullable<int> GalleryID { get; set; }
     
-        public virtual tourGallery tourGallery { get; set; }
         public virtual tourPhoto tourPhoto1 { get; set; }
         public virtual tourPhoto tourPhoto2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

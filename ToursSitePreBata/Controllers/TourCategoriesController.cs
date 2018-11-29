@@ -12,7 +12,7 @@ namespace ToursSitePreBata.Controllers
 {
     public class TourCategoriesController : Controller
     {
-        private ToursDBEntities db = new ToursDBEntities();
+        private ToursDBEntities2 db = new ToursDBEntities2();
 
         // GET: TourCategories
         public ActionResult Index()

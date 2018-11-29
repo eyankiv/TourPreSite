@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d9979dd1e390403bb093e692d63581dd" Name="Diagram1">
+        <EntityTypeShape EntityType="ToursDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToursDBModel.tourCategory" Width="1.5" PointX="1.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToursDBModel.tourClass" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToursDBModel.tourPhoto" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToursDBModel.TourPhotoMapping" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToursDBModel.Tour" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <AssociationConnector Association="ToursDBModel.FK_Tours_tourCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="ToursDBModel.FK_tourPhoto_tourPhoto" ManuallyRouted="false" />
+        <AssociationConnector Association="ToursDBModel.FK_TourPhotoMapping_tourPhoto" ManuallyRouted="false" />
+        <AssociationConnector Association="ToursDBModel.FK_TourPhotoMapping_Tours" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ToursDBContext.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ToursDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -33,21 +33,12 @@
           <Property Name="ClassPrice" Type="int" Nullable="false" />
           <Property Name="MaxPassengers" Type="int" />
         </EntityType>
-        <EntityType Name="tourGallery">
-          <Key>
-            <PropertyRef Name="GalleryID" />
-          </Key>
-          <Property Name="GalleryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GalleryName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="GalleryLink" Type="nvarchar" MaxLength="255" />
-        </EntityType>
         <EntityType Name="tourPhoto">
           <Key>
             <PropertyRef Name="PhotoID" />
           </Key>
           <Property Name="PhotoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FileName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="GalleryID" Type="int" />
         </EntityType>
         <EntityType Name="TourPhotoMapping">
           <Key>
@@ -65,22 +56,161 @@
           <Property Name="TourID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TourName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CategoryID" Type="int" />
-          <Property Name="PhotoID" Type="int" />
           <Property Name="TourDescription" Type="text" />
-          <Property Name="GalleryId" Type="int" />
           <Property Name="ClassID" Type="int" />
           <Property Name="LanguageId" Type="int" />
           <Property Name="AvailDatesID" Type="int" />
         </EntityType>
-        <Association Name="FK_tourPhoto_tourGallery">
-          <End Role="tourGallery" Type="Self.tourGallery" Multiplicity="0..1" />
-          <End Role="tourPhoto" Type="Self.tourPhoto" Multiplicity="*" />
+        <Association Name="FK_tourPhoto_tourPhoto">
+          <End Role="tourPhoto" Type="Self.tourPhoto" Multiplicity="1" />
+          <End Role="tourPhoto1" Type="Self.tourPhoto" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="tourGallery">
-              <PropertyRef Name="GalleryID" />
+            <Principal Role="tourPhoto">
+              <PropertyRef Name="PhotoID" />
             </Principal>
-            <Dependent Role="tourPhoto">
-              <PropertyRef Name="GalleryID" />
+            <Dependent Role="tourPhoto1">
+              <PropertyRef Name="PhotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TourPhotoMapping_tourPhoto">
+          <End Role="tourPhoto" Type="Self.tourPhoto" Multiplicity="1" />
+          <End Role="TourPhotoMapping" Type="Self.TourPhotoMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tourPhoto">
+              <PropertyRef Name="PhotoID" />
+            </Principal>
+            <Dependent Role="TourPhotoMapping">
+              <PropertyRef Name="TourPhotoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TourPhotoMapping_Tours">
+          <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
+          <End Role="TourPhotoMapping" Type="Self.TourPhotoMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tours">
+              <PropertyRef Name="TourID" />
+            </Principal>
+            <Dependent Role="TourPhotoMapping">
+              <PropertyRef Name="TourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tours_tourCategory">
+          <End Role="tourCategory" Type="Self.tourCategory" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tourCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ToursDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tourCategory" EntityType="Self.tourCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tourClass" EntityType="Self.tourClass" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tourPhoto" EntityType="Self.tourPhoto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TourPhotoMapping" EntityType="Self.TourPhotoMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tourPhoto_tourPhoto" Association="Self.FK_tourPhoto_tourPhoto">
+            <End Role="tourPhoto" EntitySet="tourPhoto" />
+            <End Role="tourPhoto1" EntitySet="tourPhoto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TourPhotoMapping_tourPhoto" Association="Self.FK_TourPhotoMapping_tourPhoto">
+            <End Role="tourPhoto" EntitySet="tourPhoto" />
+            <End Role="TourPhotoMapping" EntitySet="TourPhotoMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TourPhotoMapping_Tours" Association="Self.FK_TourPhotoMapping_Tours">
+            <End Role="Tours" EntitySet="Tours" />
+            <End Role="TourPhotoMapping" EntitySet="TourPhotoMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tours_tourCategory" Association="Self.FK_Tours_tourCategory">
+            <End Role="tourCategory" EntitySet="tourCategory" />
+            <End Role="Tours" EntitySet="Tours" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ToursDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tourCategory">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CategoryPhotoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tours" Relationship="Self.FK_Tours_tourCategory" FromRole="tourCategory" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="tourClass">
+          <Key>
+            <PropertyRef Name="ClassID" />
+          </Key>
+          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassPrice" Type="Int32" Nullable="false" />
+          <Property Name="MaxPassengers" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tourPhoto">
+          <Key>
+            <PropertyRef Name="PhotoID" />
+          </Key>
+          <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tourPhoto1" Relationship="Self.FK_tourPhoto_tourPhoto" FromRole="tourPhoto" ToRole="tourPhoto1" />
+          <NavigationProperty Name="tourPhoto2" Relationship="Self.FK_tourPhoto_tourPhoto" FromRole="tourPhoto1" ToRole="tourPhoto" />
+          <NavigationProperty Name="TourPhotoMappings" Relationship="Self.FK_TourPhotoMapping_tourPhoto" FromRole="tourPhoto" ToRole="TourPhotoMapping" />
+        </EntityType>
+        <EntityType Name="TourPhotoMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ImageNumber" Type="Int32" Nullable="false" />
+          <Property Name="TourID" Type="Int32" Nullable="false" />
+          <Property Name="TourPhotoID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tourPhoto" Relationship="Self.FK_TourPhotoMapping_tourPhoto" FromRole="TourPhotoMapping" ToRole="tourPhoto" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_TourPhotoMapping_Tours" FromRole="TourPhotoMapping" ToRole="Tours" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="TourID" />
+          </Key>
+          <Property Name="TourID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TourName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="TourDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClassID" Type="Int32" />
+          <Property Name="LanguageId" Type="Int32" />
+          <Property Name="AvailDatesID" Type="Int32" />
+          <NavigationProperty Name="tourCategory" Relationship="Self.FK_Tours_tourCategory" FromRole="Tours" ToRole="tourCategory" />
+          <NavigationProperty Name="TourPhotoMappings" Relationship="Self.FK_TourPhotoMapping_Tours" FromRole="Tours" ToRole="TourPhotoMapping" />
+        </EntityType>
+        <Association Name="FK_Tours_tourCategory">
+          <End Role="tourCategory" Type="Self.tourCategory" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tourCategory">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Tours">
+              <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -109,270 +239,60 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TourPhotoMapping_Tours">
-          <End Role="Tours" Type="Self.Tours" Multiplicity="1" />
-          <End Role="TourPhotoMapping" Type="Self.TourPhotoMapping" Multiplicity="0..1" />
+          <End Role="Tours" Type="Self.Tour" Multiplicity="1" />
+          <End Role="TourPhotoMapping" Type="Self.TourPhotoMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Tours">
               <PropertyRef Name="TourID" />
             </Principal>
             <Dependent Role="TourPhotoMapping">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="TourID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Tours_tourCategory">
-          <End Role="tourCategory" Type="Self.tourCategory" Multiplicity="0..1" />
-          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tours_tourGallery">
-          <End Role="tourGallery" Type="Self.tourGallery" Multiplicity="0..1" />
-          <End Role="Tours" Type="Self.Tours" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourGallery">
-              <PropertyRef Name="GalleryID" />
-            </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="GalleryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ToursDBContextStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tourCategory" EntityType="Self.tourCategory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tourClass" EntityType="Self.tourClass" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tourGallery" EntityType="Self.tourGallery" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tourPhoto" EntityType="Self.tourPhoto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TourPhotoMapping" EntityType="Self.TourPhotoMapping" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Tours" EntityType="Self.Tours" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_tourPhoto_tourGallery" Association="Self.FK_tourPhoto_tourGallery">
-            <End Role="tourGallery" EntitySet="tourGallery" />
-            <End Role="tourPhoto" EntitySet="tourPhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tourPhoto_tourPhoto" Association="Self.FK_tourPhoto_tourPhoto">
-            <End Role="tourPhoto" EntitySet="tourPhoto" />
-            <End Role="tourPhoto1" EntitySet="tourPhoto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TourPhotoMapping_tourPhoto" Association="Self.FK_TourPhotoMapping_tourPhoto">
-            <End Role="tourPhoto" EntitySet="tourPhoto" />
-            <End Role="TourPhotoMapping" EntitySet="TourPhotoMapping" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TourPhotoMapping_Tours" Association="Self.FK_TourPhotoMapping_Tours">
-            <End Role="Tours" EntitySet="Tours" />
-            <End Role="TourPhotoMapping" EntitySet="TourPhotoMapping" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tours_tourCategory" Association="Self.FK_Tours_tourCategory">
-            <End Role="tourCategory" EntitySet="tourCategory" />
-            <End Role="Tours" EntitySet="Tours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Tours_tourGallery" Association="Self.FK_Tours_tourGallery">
-            <End Role="tourGallery" EntitySet="tourGallery" />
-            <End Role="Tours" EntitySet="Tours" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="ToursDBContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tourCategory">
-          <Key>
-            <PropertyRef Name="CategoryId" />
-          </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CategoryPhotoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tours_tourCategory" FromRole="tourCategory" ToRole="Tours" />
-        </EntityType>
-        <EntityType Name="tourClass">
-          <Key>
-            <PropertyRef Name="ClassID" />
-          </Key>
-          <Property Name="ClassID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClassPrice" Type="Int32" Nullable="false" />
-          <Property Name="MaxPassengers" Type="Int32" />
-        </EntityType>
-        <EntityType Name="tourGallery">
-          <Key>
-            <PropertyRef Name="GalleryID" />
-          </Key>
-          <Property Name="GalleryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GalleryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GalleryLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Tours" Relationship="Self.FK_Tours_tourGallery" FromRole="tourGallery" ToRole="Tours" />
-          <NavigationProperty Name="tourPhotos" Relationship="ToursDBContext.FK_tourPhoto_tourGallery" FromRole="tourGallery" ToRole="tourPhoto" />
-        </EntityType>
-        <EntityType Name="tourPhoto">
-          <Key>
-            <PropertyRef Name="PhotoID" />
-          </Key>
-          <Property Name="PhotoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GalleryID" Type="Int32" />
-          <NavigationProperty Name="tourGallery" Relationship="ToursDBContext.FK_tourPhoto_tourGallery" FromRole="tourPhoto" ToRole="tourGallery" />
-          <NavigationProperty Name="tourPhoto1" Relationship="ToursDBContext.FK_tourPhoto_tourPhoto" FromRole="tourPhoto" ToRole="tourPhoto1" />
-          <NavigationProperty Name="tourPhoto2" Relationship="ToursDBContext.FK_tourPhoto_tourPhoto" FromRole="tourPhoto1" ToRole="tourPhoto" />
-          <NavigationProperty Name="TourPhotoMappings" Relationship="ToursDBContext.FK_TourPhotoMapping_tourPhoto" FromRole="tourPhoto" ToRole="TourPhotoMapping" />
-        </EntityType>
-        <EntityType Name="Tour">
-          <Key>
-            <PropertyRef Name="TourID" />
-          </Key>
-          <Property Name="TourID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TourName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CategoryID" Type="Int32" />
-          <Property Name="TourDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="GalleryId" Type="Int32" />
-          <Property Name="ClassID" Type="Int32" />
-          <Property Name="LanguageId" Type="Int32" />
-          <Property Name="AvailDatesID" Type="Int32" />
-          <NavigationProperty Name="tourCategory" Relationship="Self.FK_Tours_tourCategory" FromRole="Tours" ToRole="tourCategory" />
-          <NavigationProperty Name="tourGallery" Relationship="Self.FK_Tours_tourGallery" FromRole="Tours" ToRole="tourGallery" />
-          <Property Name="PhotoID" Type="Int32" />
-          <NavigationProperty Name="TourPhotoMapping" Relationship="ToursDBContext.FK_TourPhotoMapping_Tours" FromRole="Tour" ToRole="TourPhotoMapping" />
-        </EntityType>
-        <Association Name="FK_Tours_tourCategory">
-          <End Role="tourCategory" Type="Self.tourCategory" Multiplicity="0..1" />
-          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourCategory">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="CategoryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Tours_tourGallery">
-          <End Role="tourGallery" Type="Self.tourGallery" Multiplicity="0..1" />
-          <End Role="Tours" Type="Self.Tour" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourGallery">
-              <PropertyRef Name="GalleryID" />
-            </Principal>
-            <Dependent Role="Tours">
-              <PropertyRef Name="GalleryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ToursDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ToursDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="tourCategories" EntityType="Self.tourCategory" />
           <EntitySet Name="tourClasses" EntityType="Self.tourClass" />
-          <EntitySet Name="tourGalleries" EntityType="Self.tourGallery" />
           <EntitySet Name="tourPhotoes" EntityType="Self.tourPhoto" />
+          <EntitySet Name="TourPhotoMappings" EntityType="Self.TourPhotoMapping" />
           <EntitySet Name="Tours" EntityType="Self.Tour" />
           <AssociationSet Name="FK_Tours_tourCategory" Association="Self.FK_Tours_tourCategory">
             <End Role="tourCategory" EntitySet="tourCategories" />
             <End Role="Tours" EntitySet="Tours" />
           </AssociationSet>
-          <AssociationSet Name="FK_Tours_tourGallery" Association="Self.FK_Tours_tourGallery">
-            <End Role="tourGallery" EntitySet="tourGalleries" />
-            <End Role="Tours" EntitySet="Tours" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tourPhoto_tourGallery" Association="ToursDBContext.FK_tourPhoto_tourGallery">
-            <End Role="tourGallery" EntitySet="tourGalleries" />
-            <End Role="tourPhoto" EntitySet="tourPhotoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tourPhoto_tourPhoto" Association="ToursDBContext.FK_tourPhoto_tourPhoto">
+          <AssociationSet Name="FK_tourPhoto_tourPhoto" Association="Self.FK_tourPhoto_tourPhoto">
             <End Role="tourPhoto" EntitySet="tourPhotoes" />
             <End Role="tourPhoto1" EntitySet="tourPhotoes" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="ToursDBContext.sysdiagram" />
-          <EntitySet Name="TourPhotoMappings" EntityType="ToursDBContext.TourPhotoMapping" />
-          <AssociationSet Name="FK_TourPhotoMapping_tourPhoto" Association="ToursDBContext.FK_TourPhotoMapping_tourPhoto">
+          <AssociationSet Name="FK_TourPhotoMapping_tourPhoto" Association="Self.FK_TourPhotoMapping_tourPhoto">
             <End Role="tourPhoto" EntitySet="tourPhotoes" />
             <End Role="TourPhotoMapping" EntitySet="TourPhotoMappings" />
           </AssociationSet>
-          <AssociationSet Name="FK_TourPhotoMapping_Tours" Association="ToursDBContext.FK_TourPhotoMapping_Tours">
-            <End Role="Tour" EntitySet="Tours" />
+          <AssociationSet Name="FK_TourPhotoMapping_Tours" Association="Self.FK_TourPhotoMapping_Tours">
+            <End Role="Tours" EntitySet="Tours" />
             <End Role="TourPhotoMapping" EntitySet="TourPhotoMappings" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="FK_tourPhoto_tourGallery">
-          <End Type="ToursDBContext.tourGallery" Role="tourGallery" Multiplicity="0..1" />
-          <End Type="ToursDBContext.tourPhoto" Role="tourPhoto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourGallery">
-              <PropertyRef Name="GalleryID" />
-            </Principal>
-            <Dependent Role="tourPhoto">
-              <PropertyRef Name="GalleryID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tourPhoto_tourPhoto">
-          <End Type="ToursDBContext.tourPhoto" Role="tourPhoto" Multiplicity="1" />
-          <End Type="ToursDBContext.tourPhoto" Role="tourPhoto1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tourPhoto">
-              <PropertyRef Name="PhotoID" />
-            </Principal>
-            <Dependent Role="tourPhoto1">
-              <PropertyRef Name="PhotoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
-        <EntityType Name="TourPhotoMapping">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="ImageNumber" Type="Int32" Nullable="false" />
-          <Property Name="TourID" Type="Int32" Nullable="false" />
-          <Property Name="TourPhotoID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tourPhoto" Relationship="ToursDBContext.FK_TourPhotoMapping_tourPhoto" FromRole="TourPhotoMapping" ToRole="tourPhoto" />
-          <NavigationProperty Name="Tour" Relationship="ToursDBContext.FK_TourPhotoMapping_Tours" FromRole="TourPhotoMapping" ToRole="Tour" />
-        </EntityType>
-        <Association Name="FK_TourPhotoMapping_tourPhoto">
-          <End Type="ToursDBContext.tourPhoto" Role="tourPhoto" Multiplicity="1" />
-          <End Type="ToursDBContext.TourPhotoMapping" Role="TourPhotoMapping" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tourPhoto">
-              <PropertyRef Name="PhotoID" />
-            </Principal>
-            <Dependent Role="TourPhotoMapping">
-              <PropertyRef Name="TourPhotoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TourPhotoMapping_Tours">
-          <End Type="ToursDBContext.Tour" Role="Tour" Multiplicity="1" />
-          <End Type="ToursDBContext.TourPhotoMapping" Role="TourPhotoMapping" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Tour">
-              <PropertyRef Name="TourID" />
-            </Principal>
-            <Dependent Role="TourPhotoMapping">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ToursDBContextStoreContainer" CdmEntityContainer="ToursDBEntities">
+        <EntityContainerMapping StorageEntityContainer="ToursDBModelStoreContainer" CdmEntityContainer="ToursDBEntities2">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ToursDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tourCategories">
-            <EntityTypeMapping TypeName="ToursDBContext.tourCategory">
+            <EntityTypeMapping TypeName="ToursDBModel.tourCategory">
               <MappingFragment StoreEntitySet="tourCategory">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
@@ -382,7 +302,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tourClasses">
-            <EntityTypeMapping TypeName="ToursDBContext.tourClass">
+            <EntityTypeMapping TypeName="ToursDBModel.tourClass">
               <MappingFragment StoreEntitySet="tourClass">
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClassName" ColumnName="ClassName" />
@@ -391,57 +311,34 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tourGalleries">
-            <EntityTypeMapping TypeName="ToursDBContext.tourGallery">
-              <MappingFragment StoreEntitySet="tourGallery">
-                <ScalarProperty Name="GalleryID" ColumnName="GalleryID" />
-                <ScalarProperty Name="GalleryName" ColumnName="GalleryName" />
-                <ScalarProperty Name="GalleryLink" ColumnName="GalleryLink" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tourPhotoes">
-            <EntityTypeMapping TypeName="ToursDBContext.tourPhoto">
+            <EntityTypeMapping TypeName="ToursDBModel.tourPhoto">
               <MappingFragment StoreEntitySet="tourPhoto">
                 <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="GalleryID" ColumnName="GalleryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Tours">
-            <EntityTypeMapping TypeName="ToursDBContext.Tour">
-              <MappingFragment StoreEntitySet="Tours">
-                <ScalarProperty Name="PhotoID" ColumnName="PhotoID" />
-                <ScalarProperty Name="TourID" ColumnName="TourID" />
-                <ScalarProperty Name="TourName" ColumnName="TourName" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="TourDescription" ColumnName="TourDescription" />
-                <ScalarProperty Name="GalleryId" ColumnName="GalleryId" />
-                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-                <ScalarProperty Name="AvailDatesID" ColumnName="AvailDatesID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ToursDBContext.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TourPhotoMappings">
-            <EntityTypeMapping TypeName="ToursDBContext.TourPhotoMapping">
+            <EntityTypeMapping TypeName="ToursDBModel.TourPhotoMapping">
               <MappingFragment StoreEntitySet="TourPhotoMapping">
-                <ScalarProperty Name="TourPhotoID" ColumnName="TourPhotoID" />
-                <ScalarProperty Name="TourID" ColumnName="TourID" />
-                <ScalarProperty Name="ImageNumber" ColumnName="ImageNumber" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ImageNumber" ColumnName="ImageNumber" />
+                <ScalarProperty Name="TourID" ColumnName="TourID" />
+                <ScalarProperty Name="TourPhotoID" ColumnName="TourPhotoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="ToursDBModel.Tour">
+              <MappingFragment StoreEntitySet="Tours">
+                <ScalarProperty Name="TourID" ColumnName="TourID" />
+                <ScalarProperty Name="TourName" ColumnName="TourName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="TourDescription" ColumnName="TourDescription" />
+                <ScalarProperty Name="ClassID" ColumnName="ClassID" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="AvailDatesID" ColumnName="AvailDatesID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
